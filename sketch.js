@@ -1,0 +1,87 @@
+var helicopterIMG, helicopterSprite, packageSprite,packageIMG;
+var packageBody,ground,box1,box2,box3;
+const Engine = Matter.Engine;
+const World = Matter.World;
+const Bodies = Matter.Bodies;
+const Body = Matter.Body;
+
+function preload()
+{
+	helicopterIMG=loadImage("helicopter.png")
+	packageIMG=loadImage("package.png")
+}
+
+function setup() {
+	createCanvas(800, 700);
+	rectMode(CENTER);
+
+	packageSprite=createSprite(width/2, 80, 10,10);
+	packageSprite.addImage(packageIMG)
+	packageSprite.scale=0.2
+
+	helicopterSprite=createSprite(width/2, 200, 10,10);
+	helicopterSprite.addImage(helicopterIMG)
+	helicopterSprite.scale=0.6
+
+	groundSprite=createSprite(width/2, height-35, width,10);
+	groundSprite.shapeColor=color(255)
+
+
+	engine = Engine.create();
+	world = engine.world;
+
+	packageBody = Bodies.circle(width/2 , 200 , 5 , { isStatic:true});
+	World.add(world, packageBody);
+	
+
+	//Create a Ground
+	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
+ 	World.add(world, ground);
+
+	 box1 = createSprite(330,610,20,100);
+	 box1.shapeColor=color(255,0,0);
+	 box2 = createSprite(430,650,200,20);
+	 box2.shapeColor=color(255,0,0);
+	 box3 = createSprite(520,610,20,100);
+	 box3.shapeColor=color(255,0,0);
+	Engine.run(engine);
+  
+}
+
+
+function draw() {
+  rectMode(CENTER);
+  background(0);
+  Engine.update(engine);
+  packageSprite.x= packageBody.position.x 
+  packageSprite.y= packageBody.position.y 
+ 
+ if (keyDown(RIGHT_ARROW)){
+	 helicopterSprite.velocityX=-2;
+	 box1.velocityX=-2;
+	 box2.velocityX=-2;
+	 box3.velocityX=-2;
+	 packageSprite.velocityX=-2;
+ }
+
+ if (keyDown(LEFT_ARROW)){
+	helicopterSprite.velocityX=2;
+	box1.velocityX=2;
+	box2.velocityX=2;
+	box3.velocityX=2;
+	packageSprite.velocityX=2;
+}
+  packageSprite.collide(box1);
+  packageSprite.collide(box2);
+  packageSprite.collide(box3);
+  keyPressed();
+  drawSprites();
+ 
+}
+
+function keyPressed() {
+ if (keyCode===DOWN_ARROW) {
+	Matter.Body.setStatic(packageBody,false);	
+   }
+
+}
