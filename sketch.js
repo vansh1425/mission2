@@ -16,8 +16,9 @@ function setup() {
 	rectMode(CENTER);
 
 	packageSprite=createSprite(width/2, 80, 10,10);
-	packageSprite.addImage(packageIMG)
-	packageSprite.scale=0.2
+	packageSprite.addImage(packageIMG);
+	packageSprite.scale=0.2;
+	
 
 	helicopterSprite=createSprite(width/2, 200, 10,10);
 	helicopterSprite.addImage(helicopterIMG)
@@ -57,23 +58,13 @@ function draw() {
   packageSprite.y= packageBody.position.y 
  
  if (keyDown(RIGHT_ARROW)){
-	 helicopterSprite.velocityX=-2;
-	 box1.velocityX=-2;
-	 box2.velocityX=-2;
-	 box3.velocityX=-2;
-	 packageSprite.velocityX=-2;
+	 helicopterSprite.velocityX=2;
  }
 
  if (keyDown(LEFT_ARROW)){
-	helicopterSprite.velocityX=2;
-	box1.velocityX=2;
-	box2.velocityX=2;
-	box3.velocityX=2;
-	packageSprite.velocityX=2;
+	helicopterSprite.velocityX=-2;
 }
-  packageSprite.collide(box1);
-  packageSprite.collide(box2);
-  packageSprite.collide(box3);
+
   keyPressed();
   drawSprites();
  
